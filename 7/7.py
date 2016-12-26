@@ -64,13 +64,8 @@ def super_secret_listening(path):
                 outside_square_brackets = (slice for slice in slices if slices.index(slice) % 2 == 0)
                 inner_palindromes = [elem for sublist in [contains_palindrom_of_three_chars(slice) for slice in between_square_brackets] for elem in sublist]
                 outer_palindromes = [elem for sublist in [contains_palindrom_of_three_chars(slice) for slice in outside_square_brackets] for elem in sublist]
-                for inner in inner_palindromes:
-                    for outer in outer_palindromes:
-                        if set(inner) == set(outer) and inner != outer:
-                            contains_ssl += 1
-                            raise ContinueWithNextLine
-            except ContinueWithNextLine:
-                continue
+                if any([True if set(inner) == set(outer) and inner != outer else False for outer in outer_palindromes for inner in inner_palindromes]):
+                    contains_ssl += 1
             except StopIteration:
                 break
     print(contains_ssl)

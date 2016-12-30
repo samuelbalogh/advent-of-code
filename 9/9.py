@@ -56,23 +56,21 @@ def find_next_marker(segment):
             in_marker = True
     return False
 
-
 def recurse_decompress_segment(segment):
     if not find_next_marker(segment):
         return len(segment)
     length = 0
-    for _ in count():
-        if find_next_marker(segment):
-            marker = find_next_marker(segment)
-            length += segment.index(marker) - 1
-            segment = segment[segment.index(marker)-1:]
-            repeat_chars = segment[1:segment.index(marker)+len(marker)].split('x')[0]
-            repeat_times = segment[1:segment.index(marker)+len(marker)].split('x')[1]
-            segment = segment[segment.index(marker) +len(marker) + 1:]
-            length += recurse_decompress_segment(segment[:int(repeat_chars)]) * int(repeat_times)
-            segment = segment[int(repeat_chars):]
-        else:
-            break
+    while find_next_marker(segment):
+        marker = find_next_marker(segment)
+        length += segment.index(marker) - 1
+        marker_position = segment.index(marker)
+        segment = segment[marker_position - 1:]
+        marker_position = segment.index(marker)
+        repeat_chars = int(segment[1:marker_position + len(marker)].split('x')[0])
+        repeat_times = int(segment[1:marker_position + len(marker)].split('x')[1])
+        segment = segment[marker_position + len(marker) + 1:]
+        length += recurse_decompress_segment(segment[:repeat_chars]) * repeat_times
+        segment = segment[repeat_chars:]
     length += len(segment)
     return length
 

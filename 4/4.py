@@ -1,11 +1,10 @@
-from itertools import count
 from string import ascii_lowercase as abc
 
 def decypher_decoy_rooms(input_file):
     with open(input_file, 'r') as data:
         sum_of_sector_ids = 0
         valid_rooms = []
-        for _ in count():
+        while True:
             try:
                 line = next(data).split('[')
                 text = line[0][:-4].replace('-', ' ')

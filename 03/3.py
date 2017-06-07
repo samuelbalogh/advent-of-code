@@ -6,7 +6,7 @@ with open('input', 'r') as data:
     for line in data:
         sides = [int(item.strip()) for item in line.strip().split(' ') if item]
         if max(sides) < sum(nsmallest(2, sides)):
-            possible += 1ü
+            possible += 1
 
 
 """ Second part """

@@ -1,8 +1,5 @@
 
 
-MULTIPLICATION_TABLE = {}
-
-
 def get_checksum():
     with open('input', 'r') as input_data:
         checksum = 0

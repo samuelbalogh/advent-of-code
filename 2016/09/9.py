@@ -1,10 +1,11 @@
 """ Part one """
 
+
 def decompress(path):
     with open(path) as data:
-        decompressed = ''
-        buffer = ''
-        marker = ''
+        decompressed = ""
+        buffer = ""
+        marker = ""
         in_buffer_mode = False
         in_marker = False
         for char in data.read():
@@ -20,18 +21,18 @@ def decompress(path):
                 else:
                     buffer += char
             if in_marker and not in_buffer_mode:
-                if char == ')':
+                if char == ")":
                     in_marker = False
                     in_buffer_mode = True
-                    repeat_chars, repeat_times = [int(i) for i in marker.split('x')]
-                    marker = ''
-                    buffer = ''
+                    repeat_chars, repeat_times = [int(i) for i in marker.split("x")]
+                    marker = ""
+                    buffer = ""
                     steps = 0
                 else:
                     marker += char
-            if char == '(' and not in_marker:
+            if char == "(" and not in_marker:
                 in_marker = True
-                marker = ''
+                marker = ""
             if not in_buffer_mode and not in_marker:
                 decompressed += char
             else:
@@ -39,22 +40,25 @@ def decompress(path):
         print(decompressed)
         return decompressed
 
+
 """ Part two - CANNOT TAKE CREDIT FOR THIS ONE, HAD TO LOOK UP SOLUTION ON REDDIT:
 https://www.reddit.com/r/adventofcode/comments/5hbygy/2016_day_9_solutions/daz279z/ """
 
 from itertools import count
 
+
 def find_next_marker(segment):
-    marker = ''
+    marker = ""
     in_marker = False
     for char in segment:
-        if in_marker and char != ')':
+        if in_marker and char != ")":
             marker += char
-        if in_marker and char == ')':
+        if in_marker and char == ")":
             return marker
-        if not in_marker and char == '(':
+        if not in_marker and char == "(":
             in_marker = True
     return False
+
 
 def recurse_decompress_segment(segment):
     if not find_next_marker(segment):
@@ -64,16 +68,17 @@ def recurse_decompress_segment(segment):
         marker = find_next_marker(segment)
         length += segment.index(marker) - 1
         marker_position = segment.index(marker)
-        segment = segment[marker_position - 1:]
+        segment = segment[marker_position - 1 :]
         marker_position = segment.index(marker)
-        repeat_chars = int(segment[1:marker_position + len(marker)].split('x')[0])
-        repeat_times = int(segment[1:marker_position + len(marker)].split('x')[1])
-        segment = segment[marker_position + len(marker) + 1:]
+        repeat_chars = int(segment[1 : marker_position + len(marker)].split("x")[0])
+        repeat_times = int(segment[1 : marker_position + len(marker)].split("x")[1])
+        segment = segment[marker_position + len(marker) + 1 :]
         length += recurse_decompress_segment(segment[:repeat_chars]) * repeat_times
         segment = segment[repeat_chars:]
     length += len(segment)
     return length
 
-with open('input') as data:
+
+with open("input") as data:
     segment = data.read()
     print(recurse_decompress_segment(segment))

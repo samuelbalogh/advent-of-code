@@ -1,7 +1,8 @@
-def read_file(path='input'):
+def read_file(path="input"):
     with open(path) as input_file:
         for line in input_file:
             yield line
+
 
 def main():
     twice = 0
@@ -12,6 +13,7 @@ def main():
             twice += 1
         if 3 in frequency:
             thrice += 1
-    return twice* thrice
+    return twice * thrice
+
 
 print(main())

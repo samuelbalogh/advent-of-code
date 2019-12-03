@@ -1,10 +1,8 @@
-
-
-
-def read_file(path='input'):
+def read_file(path="input"):
     with open(path) as input_file:
         for line in input_file:
             yield line
+
 
 def main():
     last_summa = 0
@@ -17,5 +15,6 @@ def main():
             if new_summa in been_there:
                 return new_summa
             been_there.add(new_summa)
+
 
 print(main())

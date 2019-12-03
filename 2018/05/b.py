@@ -1,7 +1,8 @@
 import random
 import string
 
-def read_file(path='input'):
+
+def read_file(path="input"):
     with open(path) as input_file:
         return input_file.read()
 
@@ -16,7 +17,7 @@ def will_react(a, b):
 
 def can_further_react(segment):
     for i, item in enumerate(segment[:-1]):
-        if will_react(segment[i], segment[i+1]):
+        if will_react(segment[i], segment[i + 1]):
             return True
     return False
 
@@ -25,9 +26,9 @@ def react_segment(segment):
     if not can_further_react(segment):
         return segment
     for index, item in enumerate(segment):
-        a, b = segment[index:index+2]
+        a, b = segment[index : index + 2]
         if will_react(a, b):
-            return react_segment(segment[:index] + segment[index+2:])
+            return react_segment(segment[:index] + segment[index + 2 :])
 
 
 def slice_up(segment, length_of_slices=100):
@@ -36,10 +37,11 @@ def slice_up(segment, length_of_slices=100):
         return [segment]
     slices = []
     for i in range(0, length, length_of_slices):
-        slice_ = segment[i:i+length_of_slices]
+        slice_ = segment[i : i + length_of_slices]
         slices.append(slice_)
 
     return slices
+
 
 def main():
 
@@ -48,7 +50,7 @@ def main():
     for letter in string.ascii_lowercase:
         segment = read_file().strip()
         for char in (letter.lower(), letter.upper()):
-            segment = segment.replace(char, '')
+            segment = segment.replace(char, "")
 
         while can_further_react(segment):
             slices = slice_up(segment, length_of_slices=random.randint(70, 140))
@@ -56,12 +58,10 @@ def main():
             for slc in slices:
                 new_slice = react_segment(slc)
                 new_slices.append(new_slice)
-            segment = ''.join(new_slices)
-
+            segment = "".join(new_slices)
 
         residues.append((letter, segment, len(segment)))
     return min(residues, key=lambda k: k[2])[2]
-
 
 
 print(main())

@@ -1,6 +1,9 @@
 from helpers import read_input, read_chars
 
 
+## PART 1
+
+
 def operation(opcode, inp1, inp2):
     if opcode == 1:
         return inp1 + inp2
@@ -11,7 +14,9 @@ def operation(opcode, inp1, inp2):
     else:
         raise Exception(f"Invalid opcode: {opcode}")
 
-intcode = [1,0,0,0,99]
+
+intcode = [1, 0, 0, 0, 99]
+
 
 def process_intcode(intcode):
     result = intcode
@@ -28,16 +33,19 @@ def process_intcode(intcode):
 
     return intcode
 
-                            
-def main1():                
-    chars = []              
-    for line in read_input('02/input.txt'):
+
+def main1():
+    chars = []
+    for line in read_input("02/input.txt"):
         chars.extend([int(i) for i in read_chars(line)])
 
     chars[1] = 12
     chars[2] = 2
     intcode = process_intcode(chars)
-            
+
+
+## PART 2
+
 
 if __name__ == "__main__":
-    print(main1())
+    print(main2())

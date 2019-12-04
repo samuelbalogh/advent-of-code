@@ -46,6 +46,7 @@ def main1():
 
 ## PART 2
 
+
 def main2():
     intcode = []
     for line in read_input("02/input.txt"):

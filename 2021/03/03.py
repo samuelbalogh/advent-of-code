@@ -45,8 +45,8 @@ def find_most_common_bits(dataset: List[Text]) -> List[int]:
 
     most_common_bits = [0] * len(line)
     for index, item in enumerate(bit_sums):
-        most_common = int(item > array_length//2)
-        if item == array_length//2:
+        most_common = int(item > (array_length - item))
+        if item == array_length - item:
             most_common_bits[index] = None
             continue
 
@@ -56,10 +56,11 @@ def find_most_common_bits(dataset: List[Text]) -> List[int]:
 
 
 def main_part_two():
-    dataset = [line for line in read_input_file('test_input.txt')]
+    dataset = [line for line in read_input_file('input.txt')]
     most_common_bit_map = find_most_common_bits(dataset)
-    breakpoint()
-    res = filter_lines(dataset, filter_for_o2, most_common_bit_map)
+    o2 = filter_lines(dataset, filter_for_o2, most_common_bit_map)
+    co2 = filter_lines(dataset, filter_for_co2, most_common_bit_map)
+    print(int(o2, 2) * int(co2, 2))
     
     
 

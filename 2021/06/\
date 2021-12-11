@@ -1,0 +1,45 @@
+from typing import Text
+from typing import Dict
+from typing import List
+from typing import Generator
+
+
+def read_input_file(path: Text) -> Generator:
+    with open(path, 'r') as input_file:
+        for line in input_file:
+            yield [int(n) for n in line.strip().split(',')]
+
+
+def main():
+    fish_stack= list(read_input_file('test_input.txt'))[0]
+    total = 0
+    remaining_days = 80
+    while remaining_days > 0:
+        fish_stack = decrease_counters(fish_stack)
+        fish_stack = produce_offsprings(fish_stack)
+        remaining_days -= 1
+    print(len(fish_stack))
+
+
+def decrease_counters(fish: List[int]) -> List[int]:
+    breakpoint()
+    return [i-1 for i in fish]
+
+
+def produce_offsprings(fish: List[int]) -> List[int]:
+    counter = 0
+    while counter < len(fish):
+        fish_counter = fish[counter]
+        if fish_counter == 0:
+            fish.append(8)
+        counter += 1
+    return fish
+
+
+def main_part_two():
+    pass
+
+
+if __name__ == "__main__":
+    main()
+    main_part_two()

@@ -9,26 +9,6 @@ def read_input_file(path: Text) -> Generator:
             yield line
 
 
-def main():
-    numbers = None
-    boards = []
-    boards_raw_text = ''
-    for line in read_input_file("test_input.txt"):
-        if numbers is None:
-            numbers = line.split(',')
-            continue
-
-        boards_raw_text += line
-
-    boards = get_boards(boards_raw_text)
-
-    for number in numbers:
-        mark_boards(boards, number)
-        for board in boards:
-            if is_board_winner(board):
-                print(int(number) * count_sum_of_unmarked_numbers(board))
-
-
 def mark_boards(boards, number) -> List[List[List[Text]]]:
     for board in boards:
         for row_index, row in enumerate(board):
@@ -71,6 +51,26 @@ def count_sum_of_unmarked_numbers(board):
 
 class Done(Exception):
     pass
+
+
+def main():
+    numbers = None
+    boards = []
+    boards_raw_text = ''
+    for line in read_input_file("test_input.txt"):
+        if numbers is None:
+            numbers = line.split(',')
+            continue
+
+        boards_raw_text += line
+
+    boards = get_boards(boards_raw_text)
+
+    for number in numbers:
+        mark_boards(boards, number)
+        for board in boards:
+            if is_board_winner(board):
+                print(int(number) * count_sum_of_unmarked_numbers(board))
 
 
 def main_part_two():

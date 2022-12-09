@@ -18,8 +18,6 @@ def explore_file_system():
     path = []
 
     for line in read_input_file():
-        if line.startswith('$'):
-            listing = False
         if listing:
             if line.startswith('dir'):
                 directory = line.split('dir')[1].strip()

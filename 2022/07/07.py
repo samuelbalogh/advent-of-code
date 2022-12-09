@@ -50,8 +50,7 @@ def get_total_size_of_tree(tree, total=0):
 
 
 def main():
-    file_system = explore_file_system()
-    tree = file_system
+    tree = explore_file_system()
 
     stack = deque([ ('/', tree) ])
 
